@@ -3,7 +3,7 @@ class japan (
   Boolean $enable_users = true,
   Boolean $ensure_group = true,
   Boolean $ensure_files = true,
-  Optional[String] $user_array   = undef
+  Optional[Array] $user_array   = undef
 )  {
 
 
