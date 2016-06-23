@@ -31,6 +31,7 @@ class japan (
   }
   $file0 = '静的'
   $file1 = 'テンプレート'
+  $data_centre = $::データセンター
 
   File {
     owner  => $file_owner,
