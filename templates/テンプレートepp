@@ -1,0 +1,7 @@
+<%- |
+  String $data_centre,
+| -%>
+
+This node belongs to the <%- $data_centre %> データセンター
+
+<%- $::fqdn %>

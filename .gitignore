@@ -1,0 +1,11 @@
+spec/fixtures/.bundle
+spec/fixtures/modules
+spec/fixtures/manifests
+pkg
+.rspec_system
+.vagrant
+vagrant
+.bundle
+vendor
+coverage
+Gemfile.lock
