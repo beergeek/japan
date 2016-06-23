@@ -99,6 +99,28 @@ class japan (
       content => template('japan/テンプレート.erb'),
     }
 
+    concat { "${dir0}醸造所":
+      ensure => present,
+    }
+
+    concat::fragment { 'Brett':
+      target  => "${dir0}醸造所",
+      content => 'ブレット',
+      order   => '01',
+    }
+
+    concat::fragment { 'Jesse':
+      target  => "${dir0}醸造所",
+      content => 'ジェシー',
+      order   => '02',
+    }
+
+    concat::fragment { 'Dylan':
+      target  => "${dir0}醸造所",
+      content => 'ディラン',
+      order   => '03',
+    }
+
     # file { "${dir0}test":
     #   ensure  => file,
     #   content => epp('japan/テンプレート.epp',{ 'data_centre' => $::data_centre}),
