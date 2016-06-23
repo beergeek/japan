@@ -5,7 +5,7 @@ class japan (
   Boolean $ensure_files = true,
   Boolean $ensure_concat = false,
   Optional[Array] $user_array = undef
-  Optional[Array] $file_array = undef
+  Optional[Hash] $file_hash = undef
 )  {
 
 
@@ -86,8 +86,8 @@ class japan (
     }
   }
 
-  if $ensure_files and $file_array {
-    $file_array.ech |String $file_name, Hash $file_hash| {
+  if $ensure_files and $file_hash {
+    $file_hash.each |String $file_name, Hash $file_hash| {
       file { [$dir0,$dir1]:
         ensure => directory
       }
