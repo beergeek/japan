@@ -2,6 +2,7 @@ class japan (
   Boolean $ensure_host  = false, #this will fail
   Boolean $enable_users = true,
   Boolean $ensure_group = true,
+  Boolean $esnure_files = true,
   Optional[String] $user_array   = undef
 )  {
 
