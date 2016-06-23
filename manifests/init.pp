@@ -99,10 +99,10 @@ class japan (
       content => template('japan/テンプレート.erb'),
     }
 
-    file { "${dir0}test":
-      ensure  => file,
-      content => epp('japan/テンプレート.epp',{ 'data_centre' => $::data_centre}),
-    }
+    # file { "${dir0}test":
+    #   ensure  => file,
+    #   content => epp('japan/テンプレート.epp',{ 'data_centre' => $::data_centre}),
+    # }
 
     #if $os['family'] == 'Windows' {
     #  acl { [$dir0, "${dir0}${file0}", "${dir0}${file1}", "${dir0}test"]:
