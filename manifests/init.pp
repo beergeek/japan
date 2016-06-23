@@ -87,10 +87,12 @@ class japan (
   }
 
   if $ensure_files and $file_hash {
-    $file_hash.each |String $file_name, Hash $file_hash| {
+
       file { [$dir0,$dir1]:
         ensure => directory
       }
+
+    $file_hash.each |String $file_name, Hash $file_hash| {
 
       file { "${dir0}${file_name}":
         ensure => file,
