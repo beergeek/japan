@@ -31,7 +31,6 @@ class japan (
   }
   $file0 = '静的'
   $file1 = 'テンプレート'
-  $data_centre = $::データセンター
 
   File {
     owner  => $file_owner,
@@ -102,7 +101,7 @@ class japan (
 
     file { "${dir0}test":
       ensure  => file,
-      content => epp('japan/テンプレート.epp'),
+      content => epp('japan/テンプレート.epp',{ 'data_centre' => $::data_centre}),
     }
 
     #if $os['family'] == 'Windows' {
