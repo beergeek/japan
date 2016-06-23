@@ -1,10 +1,10 @@
 class japan (
-  $ensure_host  = false, #this will fail
-  $enable_users = true,
-  $ensure_group = true,
+  Boolean $ensure_host  = false, #this will fail
+  Boolean $enable_users = true,
+  Boolean $ensure_group = true,
+  Optional[String] $user_array   = undef
 )  {
 
-  $user_array = hiera_array('profile::japan::user_array')
 
   # This class is not best practises, it is for testing only.
   case $::kernel {
@@ -47,7 +47,7 @@ class japan (
     }
   }
 
-  if $enable_users {
+  if $enable_users and $user_array {
     $user_array.each |String $user_name| {
       user { $user_name:
         ensure  => present,
@@ -63,17 +63,17 @@ class japan (
         mode   => '0700',
       }
 
-      if $os['family'] == 'Windows' {
-        acl { "${user_path}${user_name}":
-          purge                      => false,
-          permissions                => [
-            { identity => $user_name, rights => ['full'], perm_type=> 'allow', child_types => 'all', affects => 'all' },
-            ],
-            owner                      => $user_name,
-            group                      => $user_name,
-            inherit_parent_permissions => false,
-        }
-      }
+      #if $os['family'] == 'Windows' {
+      #  acl { "${user_path}${user_name}":
+      #    purge                      => false,
+      #    permissions                => [
+      #      { identity => $user_name, rights => ['full'], perm_type=> 'allow', child_types => 'all', affects => 'all' },
+      #      ],
+      #      owner                      => $user_name,
+      #      group                      => $user_name,
+      #      inherit_parent_permissions => false,
+      #  }
+      #}
     }
   }
 
@@ -103,16 +103,16 @@ class japan (
       content => epp('japan/テンプレート.epp'),
     }
 
-    if $os['family'] == 'Windows' {
-      acl { [$dir0, "${dir0}${file0}", "${dir0}${file1}", "${dir0}test"]:
-        purge                      => false,
-        permissions                => [
-          { identity => $user_name, rights => ['full'], perm_type=> 'allow', child_types => 'all', affects => 'all' },
-          ],
-          owner                      => $file_owner,
-          group                      => $File_group,
-          inherit_parent_permissions => true,
-      }
-    }
+    #if $os['family'] == 'Windows' {
+    #  acl { [$dir0, "${dir0}${file0}", "${dir0}${file1}", "${dir0}test"]:
+    #    purge                      => false,
+    #    permissions                => [
+    #      { identity => $user_name, rights => ['full'], perm_type=> 'allow', child_types => 'all', affects => 'all' },
+    #      ],
+    #      owner                      => $file_owner,
+    #      group                      => $File_group,
+    #      inherit_parent_permissions => true,
+    #  }
+    #}
   }
 }
