@@ -4,7 +4,7 @@ class japan (
   Boolean $ensure_group = true,
   Boolean $ensure_files = true,
   Boolean $ensure_concat = false,
-  Optional[Array] $user_array = undef
+  Optional[Array] $user_array = undef,
   Optional[Hash] $file_hash = undef
 )  {
 
