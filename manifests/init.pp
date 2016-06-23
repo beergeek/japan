@@ -3,7 +3,9 @@ class japan (
   Boolean $ensure_users = true,
   Boolean $ensure_group = true,
   Boolean $ensure_files = true,
-  Optional[Array] $user_array   = undef
+  Boolean $ensure_concat = false,
+  Optional[Array] $user_array = undef
+  Optional[Array] $file_array = undef
 )  {
 
 
@@ -14,6 +16,7 @@ class japan (
       $user_gid  = 'オージー'
       $user_groups = undef
       $dir0  = '/メインディレクトリ/'
+      $dir1 = "${dir0}ファイル＿ディレクトリ/"
       $file_owner = 'root'
       $file_group = 'root'
     }
@@ -22,6 +25,7 @@ class japan (
       $user_gid  = undef
       $user_groups = 'オージー'
       $dir0  = "C:\\メインディレクトリ\\"
+      $dir1 = "${dir0}ファイル＿ディレクトリ\\"
       $file_owner = 'Administrator'
       $file_group = 'Administrators'
     }
@@ -29,8 +33,6 @@ class japan (
       fail("Oh, I am sorry you are using some shitty OS")
     }
   }
-  $file0 = '静的'
-  $file1 = 'テンプレート'
 
   File {
     owner  => $file_owner,
@@ -84,21 +86,47 @@ class japan (
     }
   }
 
-  if $ensure_files {
-    file { $dir0:
-      ensure => directory
-    }
+  if $ensure_files and $file_array {
+    $file_array.ech |String $file_name, Hash $file_hash| {
+      file { [$dir0,$dir1]:
+        ensure => directory
+      }
 
-    file { "${dir0}${file0}":
-      ensure => file,
-      source => 'puppet://modules/japan/静的',
-    }
+      file { "${dir0}${file_name}":
+        ensure => file,
+        source => 'puppet://modules/japan/静的',
+      }
 
-    file { "${dir0}${file1}":
-      ensure  => file,
-      content => template('japan/テンプレート.erb'),
-    }
+      file { "${dir1}${file_name}":
+        ensure  => file,
+        content => template('japan/テンプレート.erb'),
+      }
 
+      file { "${dir1}${file_name}_1":
+        ensure  => file,
+        content => $file_hash['content'],
+      }
+
+      # file { "${dir0}test":
+      #   ensure  => file,
+      #   content => epp('japan/テンプレート.epp',{ 'data_centre' => $::data_centre}),
+      # }
+
+      #if $os['family'] == 'Windows' {
+      #  acl { [$dir0, "${dir0}${file0}", "${dir0}${file1}", "${dir0}test"]:
+      #    purge                      => false,
+      #    permissions                => [
+      #      { identity => $user_name, rights => ['full'], perm_type=> 'allow', child_types => 'all', affects => 'all' },
+      #      ],
+      #      owner                      => $file_owner,
+      #      group                      => $File_group,
+      #      inherit_parent_permissions => true,
+      #  }
+      #}
+    }
+  }
+
+  if $ensure_concat {
     concat { "${dir0}醸造所":
       ensure => present,
     }
@@ -120,22 +148,5 @@ class japan (
       content => 'ディラン',
       order   => '03',
     }
-
-    # file { "${dir0}test":
-    #   ensure  => file,
-    #   content => epp('japan/テンプレート.epp',{ 'data_centre' => $::data_centre}),
-    # }
-
-    #if $os['family'] == 'Windows' {
-    #  acl { [$dir0, "${dir0}${file0}", "${dir0}${file1}", "${dir0}test"]:
-    #    purge                      => false,
-    #    permissions                => [
-    #      { identity => $user_name, rights => ['full'], perm_type=> 'allow', child_types => 'all', affects => 'all' },
-    #      ],
-    #      owner                      => $file_owner,
-    #      group                      => $File_group,
-    #      inherit_parent_permissions => true,
-    #  }
-    #}
   }
 }
