@@ -4,6 +4,7 @@ class japan (
   Boolean $ensure_group = true,
   Boolean $ensure_files = true,
   Boolean $ensure_concat = false,
+  String  $notify_string = 'こんにちは',
   Optional[Array] $user_array = undef,
   Optional[Hash] $file_hash = undef
 )  {
@@ -40,7 +41,7 @@ class japan (
     mode   => '0644'
   }
 
-  notify { 'こんにちは': }
+  notify { $notify_string: }
 
   if $enable_host {
     host { 'ブレット.puppet.vm':
