@@ -51,7 +51,7 @@ class japan (
     }
   }
 
-  if $enable_users and $user_array {
+  if $ensure_users and $user_array {
     $user_array.each |String $user_name| {
       user { $user_name:
         ensure  => present,
