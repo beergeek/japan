@@ -43,7 +43,7 @@ class japan (
 
   notify { $notify_string: }
 
-  if $enable_host {
+  if $ensure_host {
     host { 'ブレット.puppet.vm':
       ensure       => present,
       ip           => '52.10.10.141',
