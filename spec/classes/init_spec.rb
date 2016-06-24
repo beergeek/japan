@@ -1,15 +1,131 @@
 require 'spec_helper'
 describe 'japan' do
 
+  context "fails on non-Linux or non-Windoz" do
+    let(:facts) {
+      {
+        'kernel' => 'Gigantic_Brewery',
+      }
+    }
+
+    it 'is_expected.to explode' do
+      expect { catalogue }.to raise_error(Puppet::Error, /Oh, I am sorry you are using some shitty OS/)
+    end
+  end
+
   context 'all defaults' do
     let(:facts) {
       {
         'kernel' => 'Linux',
       }
     }
+    it { is_expected.to contain_class('japan') }
+    it { is_expected.to compile.with_all_deps }
+    it {
+      is_expected.to contain_notify('こんにちは')
+    }
+  end
+
+  context 'with host ensured' do
+    let(:facts) {
+      {
+        'kernel' => 'Linux',
+      }
+    }
+    let(:params) {
+      {
+        'ensure_host' => true,
+      }
+    }
+
+    # THIS WILL ACTUALLY FAIL ON THE NODE!
+    it {
+      is_expected.to contain_host('ブレット.puppet.vm')
+    }
+  end
+
+  context '' do
+    let(:facts) {
+      {
+        'kernel' => 'Linux',
+        'os'     => { 'family' => 'debian' },
+      }
+    }
+    let(:params) {
+      {
+        'user_array'   => ["ブレット", "ディラン", "ジェシー"],
+        'ensure_users' => true,
+      }
+    }
 
     it {
-      should contain_notify('こんにちは')
+      is_expected.to contain_group('オージー')
+    }
+
+    it {
+      is_expected.to contain_user('ブレット').with({
+        'ensure' => 'present',
+        'home'   => '/home/ブレット',
+        'gid'    => 'ブレット',
+        'groups' => ['オージー'],
+      })
+    }
+
+    it {
+      is_expected.to contain_group('ブレット')
+    }
+
+    it {
+      is_expected.to contain_file('/home/ブレット').with({
+        'ensure' => 'directory',
+        'owner'  => 'ブレット',
+        'group'  => 'ブレット',
+        'mode'   => '0700',
+      })
+    }
+
+    it {
+      is_expected.to contain_user('ディラン').with({
+        'ensure' => 'present',
+        'home'   => '/home/ディラン',
+        'gid'    => 'ディラン',
+        'groups' => ['オージー'],
+      })
+    }
+
+    it {
+      is_expected.to contain_group('ディラン')
+    }
+
+    it {
+      is_expected.to contain_file('/home/ディラン').with({
+        'ensure' => 'directory',
+        'owner'  => 'ディラン',
+        'group'  => 'ディラン',
+        'mode'   => '0700',
+      })
+    }
+
+    it {
+      is_expected.to contain_user('ジェシー').with({
+        'ensure' => 'present',
+        'home'   => '/home/ジェシー',
+        'gid'    => 'ジェシー',
+        'groups' => ['オージー'],
+      })
+    }
+
+    it {
+      is_expected.to contain_group('ジェシー')
+    }
+
+    it {
+      is_expected.to contain_file('/home/ジェシー').with({
+        'ensure' => 'directory',
+        'owner'  => 'ジェシー',
+        'group'  => 'ジェシー',
+        'mode'   => '0700',
+      })
     }
   end
 end

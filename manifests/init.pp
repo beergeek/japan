@@ -14,8 +14,6 @@ class japan (
   case $::kernel {
     'Linux': {
       $user_path = '/home/'
-      $user_gid  = 'オージー'
-      $user_groups = undef
       $dir0  = '/メインディレクトリ/'
       $dir1 = "${dir0}ファイル＿ディレクトリ/"
       $file_owner = 'root'
@@ -23,8 +21,6 @@ class japan (
     }
     'Windows': {
       $user_path = 'C:\\Users\\'
-      $user_gid  = undef
-      $user_groups = 'オージー'
       $dir0  = "C:\\メインディレクトリ\\"
       $dir1 = "${dir0}ファイル＿ディレクトリ\\"
       $file_owner = 'Administrator'
@@ -56,8 +52,14 @@ class japan (
       user { $user_name:
         ensure  => present,
         home    => "${user_path}${user_name}",
-        gid     => $user_gid,
-        groups  => $user_groups,
+        gid     => $os['family'] ? {
+          'Windows' => undef,
+          default   => $user_name,
+        },
+        groups  => $os['family'] ? {
+          'Windows' => [$user_groups],
+          default   => ['オージー'],
+        },
       }
 
       group { $user_name:
