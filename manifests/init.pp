@@ -1,8 +1,8 @@
 class japan (
   Boolean $ensure_host  = false, #this will fail
-  Boolean $ensure_users = true,
-  Boolean $ensure_group = true,
-  Boolean $ensure_files = true,
+  Boolean $ensure_users = false,
+  Boolean $ensure_group = false,
+  Boolean $ensure_files = false,
   Boolean $ensure_concat = false,
   String  $notify_string = 'こんにちは',
   Optional[Array] $user_array = undef,
