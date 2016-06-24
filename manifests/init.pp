@@ -51,7 +51,7 @@ class japan (
     }
   }
 
-  if $ensure_users and $user_array {
+  if $ensure_users and $user_array and $os['family'] != 'RedHat' {
     $user_array.each |String $user_name| {
       user { $user_name:
         ensure  => present,
