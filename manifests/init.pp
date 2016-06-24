@@ -60,6 +60,10 @@ class japan (
         groups  => $user_groups,
       }
 
+      group { $user_name:
+        ensure => present,
+      }
+
       file { "${user_path}${user_name}":
         ensure => directory,
         owner  => $user_name,
