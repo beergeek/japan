@@ -1,7 +1,9 @@
 <%- |
-  String $data_centre,
+  String $in_data,
 | -%>
 
-This node belongs to the <%- $data_centre %> データセンター
+<%= $in_data %>
 
-<%- $::fqdn %>
+This node belongs to the <%= $::data_centre %> データセンター
+
+<%= $::fqdn %>

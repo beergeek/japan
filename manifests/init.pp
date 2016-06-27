@@ -116,10 +116,10 @@ class utf_8 (
         content => $file_hash['content'],
       }
 
-      # file { "${dir0}test":
-      #   ensure  => file,
-      #   content => epp('japan/テンプレート.epp',{ 'data_centre' => $::data_centre}),
-      # }
+      file { "${dir0}${file_name}/test":
+        ensure  => file,
+        content => epp('japan/テンプレート.epp', { 'in_data' => $notify_string }),
+      }
 
       #if $os['family'] == 'Windows' {
       #  acl { [$dir0, "${dir0}${file0}", "${dir0}${file1}", "${dir0}test"]:
