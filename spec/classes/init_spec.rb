@@ -66,13 +66,13 @@ describe 'utf_8' do
       is_expected.to contain_user('ブレット').with({
         'ensure' => 'present',
         'home'   => '/home/ブレット',
-        'gid'    => 'ブレット',
+        'gid'    => 'ブレット_grp',
         'groups' => ['オージー'],
       })
     }
 
     it {
-      is_expected.to contain_group('ブレット')
+      is_expected.to contain_group('ブレット_grp')
     }
 
     it {
@@ -88,13 +88,13 @@ describe 'utf_8' do
       is_expected.to contain_user('ディラン').with({
         'ensure' => 'present',
         'home'   => '/home/ディラン',
-        'gid'    => 'ディラン',
+        'gid'    => 'ディラン_grp',
         'groups' => ['オージー'],
       })
     }
 
     it {
-      is_expected.to contain_group('ディラン')
+      is_expected.to contain_group('ディラン_grp')
     }
 
     it {
@@ -110,13 +110,13 @@ describe 'utf_8' do
       is_expected.to contain_user('ジェシー').with({
         'ensure' => 'present',
         'home'   => '/home/ジェシー',
-        'gid'    => 'ジェシー',
+        'gid'    => 'ジェシー_grp',
         'groups' => ['オージー'],
       })
     }
 
     it {
-      is_expected.to contain_group('ジェシー')
+      is_expected.to contain_group('ジェシー_grp')
     }
 
     it {
