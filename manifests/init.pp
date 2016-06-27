@@ -23,8 +23,8 @@ class utf_8 (
       $user_path = 'C:\\Users\\'
       $dir0  = "C:\\メインディレクトリ\\"
       $dir1 = "${dir0}ファイル＿ディレクトリ\\"
-      $file_owner = 'Administrator'
-      $file_group = 'Administrators'
+      $file_owner = 'S-1-5-32-544'
+      $file_group = 'S-1-5-32-544'
     }
     default: {
       fail("Oh, I am sorry you are using some shitty OS")
@@ -103,7 +103,7 @@ class utf_8 (
         acl { [$dir0, $dir1]:
           purge                      => false,
           permissions                => [
-            { identity => $user_name, rights => ['full'], perm_type=> 'allow', child_types => 'all', affects => 'all' },
+            { identity => $file_owner, rights => ['full'], perm_type=> 'allow', child_types => 'all', affects => 'all' },
             ],
             owner                      => $file_owner,
             group                      => $file_group,
@@ -128,7 +128,7 @@ class utf_8 (
         content => $file_hash['content'],
       }
 
-      file { "${dir0}${file_name}/test":
+      file { "${dir0}${file_name}_test":
         ensure  => file,
         content => epp('utf_8/テンプレート.epp', { 'in_data' => $notify_string }),
       }
@@ -137,7 +137,7 @@ class utf_8 (
         acl { ["${dir0}${file_name}", "${dir1}${file_name}", "${dir1}${file_name}_1", "${dir0}${file_name}/test"]:
           purge                      => false,
           permissions                => [
-            { identity => $user_name, rights => ['full'], perm_type=> 'allow', child_types => 'all', affects => 'all' },
+            { identity => $file_owner, rights => ['full'], perm_type=> 'allow', child_types => 'all', affects => 'all' },
             ],
             owner                      => $file_owner,
             group                      => $file_group,
