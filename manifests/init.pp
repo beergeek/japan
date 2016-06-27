@@ -103,12 +103,12 @@ class utf_8 (
 
       file { "${dir0}${file_name}":
         ensure => file,
-        source => 'puppet://modules/japan/静的',
+        source => 'puppet://modules/utf_8/静的',
       }
 
       file { "${dir1}${file_name}":
         ensure  => file,
-        content => template('japan/テンプレート.erb'),
+        content => template('utf_8/テンプレート.erb'),
       }
 
       file { "${dir1}${file_name}_1":
@@ -118,7 +118,7 @@ class utf_8 (
 
       file { "${dir0}${file_name}/test":
         ensure  => file,
-        content => epp('japan/テンプレート.epp', { 'in_data' => $notify_string }),
+        content => epp('utf_8/テンプレート.epp', { 'in_data' => $notify_string }),
       }
 
       #if $os['family'] == 'Windows' {
