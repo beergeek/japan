@@ -1,4 +1,4 @@
-class japan (
+class utf_8 (
   Boolean $ensure_host  = false, #this will fail
   Boolean $ensure_users = false,
   Boolean $ensure_group = false,

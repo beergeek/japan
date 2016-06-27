@@ -1,6 +1,6 @@
 fixtures:
   symlinks:
-    japan: "#{source_dir}"
+    utf_8: "#{source_dir}"
   repositories:
     acl:
       repo: "git@github.com:puppetlabs/puppetlabs-acl.git"

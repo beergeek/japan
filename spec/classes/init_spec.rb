@@ -1,5 +1,5 @@
 require 'spec_helper'
-describe 'japan' do
+describe 'utf_8' do
 
   context "fails on non-Linux or non-Windoz" do
     let(:facts) {
@@ -19,7 +19,7 @@ describe 'japan' do
         'kernel' => 'Linux',
       }
     }
-    it { is_expected.to contain_class('japan') }
+    it { is_expected.to contain_class('utf_8') }
     it { is_expected.to compile.with_all_deps }
     it {
       is_expected.to contain_notify('こんにちは')
@@ -127,5 +127,94 @@ describe 'japan' do
         'mode'   => '0700',
       })
     }
+  end
+
+  context 'files on Linux' do
+    let(:facts) {
+      {
+        'kernel'      => 'Linux',
+        'data_centre' => '東京',
+      }
+    }
+    let(:params) {
+      {
+        'ensure_files' => true,
+        'file_hash'    => {"ファイル＿2"=>{"content"=>"ブレット"}, "ファイル＿3"=>{"content"=>"ディラン"}},
+      }
+    }
+
+    it {
+      is_expected.to contain_file('/メインディレクトリ/').with({
+        'ensure'  => 'directory',
+        'owner'   => 'root',
+        'group'   => 'root',
+        'mode'    => '0644',
+      })
+    }
+
+    it {
+      is_expected.to contain_file('/メインディレクトリ/ファイル＿ディレクトリ/').with({
+        'ensure'  => 'directory',
+        'owner'   => 'root',
+        'group'   => 'root',
+        'mode'    => '0644',
+      })
+    }
+
+    it {
+      is_expected.to contain_file('/メインディレクトリ/ファイル＿2').with({
+        'ensure'  => 'file',
+        'owner'   => 'root',
+        'group'   => 'root',
+        'mode'    => '0644',
+        'source'  => 'puppet://modules/japan/静的',
+      })
+    }
+
+    it {
+      is_expected.to contain_file('/メインディレクトリ/ファイル＿ディレクトリ/ファイル＿2').with({
+        'ensure'  => 'file',
+        'owner'   => 'root',
+        'group'   => 'root',
+        'mode'    => '0644',
+      }).with_content(/.*東京.*/)
+    }
+
+    it {
+      is_expected.to contain_file('/メインディレクトリ/ファイル＿ディレクトリ/ファイル＿2_1').with({
+        'ensure'  => 'file',
+        'owner'   => 'root',
+        'group'   => 'root',
+        'mode'    => '0644',
+        'content'  => 'ブレット',
+      })
+    }
+
+    it {
+      is_expected.to contain_file('/メインディレクトリ/ファイル＿3').with({
+        'ensure'  => 'file',
+        'owner'   => 'root',
+        'group'   => 'root',
+        'mode'    => '0644',
+        'source'  => 'puppet://modules/japan/静的',
+      })
+    }
+
+    it {
+      is_expected.to contain_file('/メインディレクトリ/ファイル＿ディレクトリ/ファイル＿3').with({
+        'ensure'  => 'file',
+        'owner'   => 'root',
+        'group'   => 'root',
+        'mode'    => '0644',
+      }).with_content(/\s*東京\s*/)
+    }
+
+    it {
+      is_expected.to contain_file('/メインディレクトリ/ファイル＿ディレクトリ/ファイル＿3_1').with({
+        'ensure'  => 'file',
+        'content'  => 'ディラン',
+      })
+    }
+
   end
 end
