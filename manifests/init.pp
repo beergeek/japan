@@ -47,13 +47,13 @@ class utf_8 (
     }
   }
 
-  if $ensure_users and $user_array and $os['family'] != 'RedHat' {
-
-    if $ensure_group or $ensure_users {
-      group { 'オージー':
-        ensure => present,
-      }
+  if $ensure_group or $ensure_users {
+    group { 'オージー':
+      ensure => present,
     }
+  }
+
+  if $ensure_users and $user_array and $os['family'] != 'RedHat' {
 
     $user_array.each |String $user_name| {
       user { $user_name:
