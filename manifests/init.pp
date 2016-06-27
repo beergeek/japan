@@ -54,15 +54,15 @@ class utf_8 (
         home    => "${user_path}${user_name}",
         gid     => $os['family'] ? {
           'Windows' => undef,
-          default   => $user_name,
+          default   => "${user_name}_grp",
         },
         groups  => $os['family'] ? {
-          'Windows' => [$user_name, 'オージー'],
+          'Windows' => ["${user_name}_grp", 'オージー'],
           default   => ['オージー'],
         },
       }
 
-      group { $user_name:
+      group { "${user_name}_grp":
         ensure => present,
       }
 
