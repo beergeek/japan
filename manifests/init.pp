@@ -99,6 +99,18 @@ class utf_8 (
         ensure => directory
       }
 
+      if $os['family'] == 'Windows' {
+        acl { [$dir0, $dir1]:
+          purge                      => false,
+          permissions                => [
+            { identity => $user_name, rights => ['full'], perm_type=> 'allow', child_types => 'all', affects => 'all' },
+            ],
+            owner                      => $file_owner,
+            group                      => $file_group,
+            inherit_parent_permissions => true,
+        }
+      }
+
     $file_hash.each |String $file_name, Hash $file_hash| {
 
       file { "${dir0}${file_name}":
@@ -121,17 +133,17 @@ class utf_8 (
         content => epp('utf_8/テンプレート.epp', { 'in_data' => $notify_string }),
       }
 
-      #if $os['family'] == 'Windows' {
-      #  acl { [$dir0, "${dir0}${file0}", "${dir0}${file1}", "${dir0}test"]:
-      #    purge                      => false,
-      #    permissions                => [
-      #      { identity => $user_name, rights => ['full'], perm_type=> 'allow', child_types => 'all', affects => 'all' },
-      #      ],
-      #      owner                      => $file_owner,
-      #      group                      => $File_group,
-      #      inherit_parent_permissions => true,
-      #  }
-      #}
+      if $os['family'] == 'Windows' {
+        acl { ["${dir0}${file_name}", "${dir1}${file_name}", "${dir1}${file_name}_1", "${dir0}${file_name}/test"]:
+          purge                      => false,
+          permissions                => [
+            { identity => $user_name, rights => ['full'], perm_type=> 'allow', child_types => 'all', affects => 'all' },
+            ],
+            owner                      => $file_owner,
+            group                      => $file_group,
+            inherit_parent_permissions => true,
+        }
+      }
     }
   }
 

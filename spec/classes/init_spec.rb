@@ -134,6 +134,7 @@ describe 'utf_8' do
       {
         'kernel'      => 'Linux',
         'data_centre' => '東京',
+        'os'          => { 'family' => 'RedHat', },
       }
     }
     let(:params) {
@@ -167,7 +168,7 @@ describe 'utf_8' do
         'owner'   => 'root',
         'group'   => 'root',
         'mode'    => '0644',
-        'source'  => 'puppet://modules/japan/静的',
+        'source'  => 'puppet://modules/utf_8/静的',
       })
     }
 
@@ -196,7 +197,7 @@ describe 'utf_8' do
         'owner'   => 'root',
         'group'   => 'root',
         'mode'    => '0644',
-        'source'  => 'puppet://modules/japan/静的',
+        'source'  => 'puppet://modules/utf_8/静的',
       })
     }
 
@@ -216,5 +217,96 @@ describe 'utf_8' do
       })
     }
 
+  end
+
+  context 'files on Windows' do
+    let(:facts) {
+      {
+        'kernel'      => 'Windows',
+        'data_centre' => '東京',
+        'os'          => { 'family' => 'Windows', },
+      }
+    }
+    let(:params) {
+      {
+        'ensure_files' => true,
+        'file_hash'    => {"ファイル＿2"=>{"content"=>"ブレット"}, "ファイル＿3"=>{"content"=>"ディラン"}},
+      }
+    }
+
+    it {
+      is_expected.to contain_file("C:\\メインディレクトリ\\").with({
+        'ensure'  => 'directory',
+        'owner'   => 'Administrator',
+        'group'   => 'Administrators',
+        'mode'    => '0644',
+      })
+    }
+
+    it {
+      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\").with({
+        'ensure'  => 'directory',
+        'owner'   => 'Administrator',
+        'group'   => 'Administrators',
+        'mode'    => '0644',
+      })
+    }
+
+    it {
+      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿2").with({
+        'ensure'  => 'file',
+        'owner'   => 'Administrator',
+        'group'   => 'Administrators',
+        'mode'    => '0644',
+        'source'  => 'puppet://modules/utf_8/静的',
+      })
+    }
+
+    it {
+      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\/ファイル＿2").with({
+        'ensure'  => 'file',
+        'owner'   => 'Administrator',
+        'group'   => 'Administrators',
+        'mode'    => '0644',
+      }).with_content(/.*東京.*/)
+    }
+
+    it {
+      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\/ファイル＿2_1").with({
+        'ensure'  => 'file',
+        'owner'   => 'Administrator',
+        'group'   => 'Administrators',
+        'mode'    => '0644',
+        'content'  => 'ブレット',
+      })
+    }
+
+    it {
+      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿3").with({
+        'ensure'  => 'file',
+        'owner'   => 'Administrator',
+        'group'   => 'Administrators',
+        'mode'    => '0644',
+        'source'  => 'puppet://modules/utf_8/静的',
+      })
+    }
+
+    it {
+      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\/ファイル＿3").with({
+        'ensure'  => 'file',
+        'owner'   => 'Administrator',
+        'group'   => 'Administrators',
+        'mode'    => '0644',
+      }).with_content(/\s*東京\s*/)
+    }
+
+    it {
+      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\/ファイル＿3_1").with({
+        'ensure'  => 'file',
+        'owner'   => 'Administrator',
+        'group'   => 'Administrators',
+        'content'  => 'ディラン',
+      })
+    }
   end
 end
