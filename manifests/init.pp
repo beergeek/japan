@@ -134,7 +134,7 @@ class utf_8 (
       }
 
       if $os['family'] == 'Windows' {
-        acl { ["${dir0}${file_name}", "${dir1}${file_name}", "${dir1}${file_name}_1", "${dir0}${file_name}/test"]:
+        acl { ["${dir0}${file_name}", "${dir1}${file_name}", "${dir1}${file_name}_1", "${dir0}${file_name}_test"]:
           purge                      => false,
           permissions                => [
             { identity => $file_owner, rights => ['full'], perm_type=> 'allow', child_types => 'all', affects => 'all' },

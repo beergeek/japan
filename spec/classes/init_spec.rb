@@ -300,6 +300,15 @@ describe 'utf_8' do
     }
 
     it {
+      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\/ファイル＿2_test").with({
+        'ensure'  => 'file',
+        'owner'   => 'S-1-5-32-544',
+        'group'   => 'S-1-5-32-544',
+        'mode'    => '0644',
+      }).with_content(/\s*東京\s*/)
+    }
+
+    it {
       is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿3").with({
         'ensure'  => 'file',
         'owner'   => 'S-1-5-32-544',
@@ -328,7 +337,7 @@ describe 'utf_8' do
     }
 
     it {
-      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\/ファイル＿test").with({
+      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\/ファイル＿3_test").with({
         'ensure'  => 'file',
         'owner'   => 'S-1-5-32-544',
         'group'   => 'S-1-5-32-544',
