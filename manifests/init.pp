@@ -57,7 +57,7 @@ class utf_8 (
           default   => $user_name,
         },
         groups  => $os['family'] ? {
-          'Windows' => [$user_groups],
+          'Windows' => [$user_name, 'オージー'],
           default   => ['オージー'],
         },
       }
