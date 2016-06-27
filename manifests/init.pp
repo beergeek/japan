@@ -76,7 +76,7 @@ class utf_8 (
       file { "${user_path}${user_name}":
         ensure => directory,
         owner  => $user_name,
-        group  => $user_name,
+        group  => "${user_name}_grp",
         mode   => '0700',
       }
 
