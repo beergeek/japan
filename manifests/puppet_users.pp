@@ -1,4 +1,6 @@
-class utf_8::puppet_users {
+class utf_8::puppet_users (
+  $user_hash,
+)  {
 
   # just skip over if not Linux
   if $::kernel == 'Linux' {
