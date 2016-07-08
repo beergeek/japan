@@ -4,5 +4,6 @@ define utf_8::component_one (
   notify { $message: }
 }
 
-Utf_8::Component_one produces Blank
-#Utf_8::Component_one consumes Blank
+Utf_8::Component_one produces Blank {
+  message => $message,
+}
