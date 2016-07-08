@@ -62,4 +62,3 @@ class utf_8::puppet_users (
     }
   }
 }
-}
