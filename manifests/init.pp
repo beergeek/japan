@@ -1,12 +1,13 @@
 class utf_8 (
-  Boolean $ensure_host  = false, #this will fail
-  Boolean $ensure_users = false,
-  Boolean $ensure_group = false,
-  Boolean $ensure_files = false,
-  Boolean $ensure_concat = false,
-  String  $notify_string = 'こんにちは',
+  Boolean $ensure_host        = false, #this will fail
+  Boolean $ensure_users       = false,
+  Boolean $ensure_group       = false,
+  Boolean $ensure_files       = false,
+  Boolean $ensure_concat      = false,
+  Bollean $ensure_registry    = false,
+  String  $notify_string      = 'こんにちは',
   Optional[Array] $user_array = undef,
-  Optional[Hash] $file_hash = undef
+  Optional[Hash] $file_hash   = undef
 )  {
 
 
@@ -146,6 +147,29 @@ class utf_8 (
         }
       }
     }
+  }
+
+  if $::os['family'] == 'windows' and $ensure_registry {
+    registry::value { 'ビール':
+      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\japanese',
+      value => 'ビール',
+    }
+
+    registry::value { 'bier':
+      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\flemish',
+      value => 'bier',
+    }
+
+    registry::value { 'bière':
+      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\french',
+      value => 'bière',
+    }
+
+    registry::value { 'пиво':
+      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\russian',
+      value => 'пиво',
+    }
+
   }
 
   if $ensure_concat {
