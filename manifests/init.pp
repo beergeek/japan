@@ -4,7 +4,7 @@ class utf_8 (
   Boolean $ensure_group       = false,
   Boolean $ensure_files       = false,
   Boolean $ensure_concat      = false,
-  Bollean $ensure_registry    = false,
+  Boolean $ensure_registry    = false,
   String  $notify_string      = 'こんにちは',
   Optional[Array] $user_array = undef,
   Optional[Hash] $file_hash   = undef
