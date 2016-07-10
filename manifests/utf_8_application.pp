@@ -1,4 +1,4 @@
-application utf_8::application (
+application utf_8::utf_8_application (
   $message = $name
 ) {
   utf_8::component_one { "${name}_first":
