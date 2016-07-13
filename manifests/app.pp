@@ -8,6 +8,6 @@ application utf_8::app (
 
   utf_8::component_one { "${name}_second":
     message => $message,
-    consume => Blank["exported_${message}"],
+    #consume => Blank["exported_${message}"],
   }
 }
