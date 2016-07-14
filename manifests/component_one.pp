@@ -7,3 +7,7 @@ define utf_8::component_one (
 Utf_8::Component_one produces Blank {
   message => $message,
 }
+
+Utf_8::Component_one consumes Blank {
+  message => $message,
+}
