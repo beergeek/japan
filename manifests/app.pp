@@ -3,11 +3,11 @@ application utf_8::app (
 ) {
   utf_8::component_one { "${name}_first":
     message => $message,
-    export  => Sql["exported_${message}"],
+    export  => Blank["exported_${message}"],
   }
 
   utf_8::component_one { "${name}_second":
     message => $message,
-    require => Sql["exported_${message}"],
+    require => Blank["exported_${message}"],
   }
 }
