@@ -151,25 +151,25 @@ class utf_8 (
 
   if $::os['family'] == 'windows' and $ensure_registry {
     registry::value { 'ビール':
-      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\japanese',
+      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\japanese\beer',
       value => 'beer',
       data  => 'ビール',
     }
 
     registry::value { 'bier':
-      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\flemish',
+      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\flemish\bier',
       value => 'beer',
       data  => 'bier',
     }
 
     registry::value { 'bière':
-      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\french',
+      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\french\bière',
       value => 'beer',
       data  => 'bière',
     }
 
     registry::value { 'пиво':
-      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\russian',
+      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\russian\пиво',
       value => 'beer',
       data  => 'пиво',
     }
