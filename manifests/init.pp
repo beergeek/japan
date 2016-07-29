@@ -151,7 +151,7 @@ class utf_8 (
 
   if $::os['family'] == 'windows' and $ensure_registry {
     registry::value { 'ビール':
-      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\japanese\beer',
+      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\japanese\ビール',
       value => 'beer',
       data  => 'ビール',
     }
