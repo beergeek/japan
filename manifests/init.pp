@@ -1,13 +1,14 @@
 class utf_8 (
-  Boolean $ensure_host        = false, #this will fail
-  Boolean $ensure_users       = false,
-  Boolean $ensure_group       = false,
-  Boolean $ensure_files       = false,
-  Boolean $ensure_concat      = false,
-  Boolean $ensure_registry    = false,
-  String  $notify_string      = 'こんにちは',
-  Optional[Array] $user_array = undef,
-  Optional[Hash] $file_hash   = undef
+  Boolean $ensure_host          = false, #this will fail
+  Boolean $ensure_users         = false,
+  Boolean $ensure_group         = false,
+  Boolean $ensure_files         = false,
+  Boolean $ensure_static_files  = false,
+  Boolean $ensure_concat        = false,
+  Boolean $ensure_registry      = false,
+  String  $notify_string        = 'こんにちは',
+  Optional[Array] $user_array   = undef,
+  Optional[Hash] $file_hash     = undef
 )  {
 
 
@@ -115,9 +116,11 @@ class utf_8 (
 
     $file_hash.each |String $file_name, Hash $file_hash| {
 
-      file { "${dir0}${file_name}":
-        ensure => file,
-        source => 'puppet://modules/utf_8/静的',
+      if $ensure_static_files {
+        file { "${dir0}${file_name}":
+          ensure => file,
+          source => 'puppet://modules/utf_8/静的',
+        }
       }
 
       file { "${dir1}${file_name}":
