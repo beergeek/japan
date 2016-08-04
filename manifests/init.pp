@@ -6,10 +6,8 @@ class utf_8 (
   Boolean $ensure_static_files  = false,
   Boolean $ensure_concat        = false,
   Boolean $ensure_registry      = false,
-  Boolean $ensure_nrp           = false,
   String  $notify_string        = 'こんにちは',
   Optional[Array] $user_array   = undef,
-  Optional[Hash] $nrp_user_hash = undef,
   Optional[Hash] $file_hash     = undef
 )  {
 
@@ -42,12 +40,6 @@ class utf_8 (
   }
 
   notify { $notify_string: }
-
-  if $ensure_nrp {
-    class { 'utf_8::puppet_users':
-      user_hash => $nrp_user_hash,
-    }
-  }
 
   if $ensure_host {
     host { 'ブレット.puppet.vm':
