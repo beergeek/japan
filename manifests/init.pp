@@ -75,7 +75,7 @@ class utf_8 (
         ensure => present,
       }
 
-      file { "${user_path}${user_name}":
+      file { ["${user_path}${user_name}","${user_path}${user_name}/.puppetlabs"]:
         ensure => directory,
         owner  => $user_name,
         group  => "${user_name}_grp",
