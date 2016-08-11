@@ -77,12 +77,6 @@ class utf_8 (
         ensure => present,
       }
 
-      @@group { "${user_name}_${::hostname}":
-        ensure => present,
-      }
-
-      @group { "
-
       file { ["${user_path}${user_name}","${user_path}${user_name}/.puppetlabs"]:
         ensure => directory,
         owner  => $user_name,
