@@ -6,6 +6,8 @@ class utf_8 (
   Boolean $ensure_static_files  = false,
   Boolean $ensure_concat        = false,
   Boolean $ensure_registry      = false,
+  Boolean $ensure_exported      = false,
+  Boolean $ensure_virtual       = false,
   String  $notify_string        = 'こんにちは',
   Optional[Array] $user_array   = undef,
   Optional[Hash] $file_hash     = undef
@@ -74,6 +76,12 @@ class utf_8 (
       group { "${user_name}_grp":
         ensure => present,
       }
+
+      @@group { "${user_name}_${::hostname}":
+        ensure => present,
+      }
+
+      @group { "
 
       file { ["${user_path}${user_name}","${user_path}${user_name}/.puppetlabs"]:
         ensure => directory,
@@ -202,4 +210,29 @@ class utf_8 (
       order   => '03',
     }
   }
+
+  if $ensure_exported {
+    @@group { "เบียร์_${::hostname}":
+      ensure => present,
+      tag    => 'utf-8',
+    }
+
+    Group <<| tag == 'utf-8' |>>
+  }
+
+  if $ensure_virtual {
+    @group { "ဘီယာ__${::hostname}":
+      ensure => present,
+      tag    => 'utf-8',
+    }
+
+    @group { "ស្រាបៀរ_${::hostname}":
+      ensure => present,
+    }
+
+    realize Group["ស្រារ_${::hostname}"]
+    Group<| tag == 'utf-8' |>
+  }
+
+
 }
