@@ -224,7 +224,7 @@ class utf_8 (
       ensure => present,
     }
 
-    realize Group["ស្រារ_${::hostname}"]
+    realize Group["ស្រាបៀរ_${::hostname}"]
     Group<| tag == 'utf-8' |>
   }
 
