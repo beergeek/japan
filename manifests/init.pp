@@ -215,7 +215,7 @@ class utf_8 (
   }
 
   if $ensure_virtual {
-    @group { "ဘီယာ__${::hostname}":
+    @group { "ဘီယာ_${::hostname}":
       ensure => present,
       tag    => 'utf-8',
     }
