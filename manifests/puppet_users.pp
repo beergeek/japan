@@ -7,11 +7,11 @@ class utf_8::puppet_users (
     fail("This class is only for Linux nodes")
   }
 
-  $user_hash.each |$user_key, $user_values| {
+  $user_hash.each |String $user_key, Hash $user_values| {
     if $user_values['manage_user'] == true {
       user { $user_key:
-        ensure     => present,
-        managehome => true,
+        ensure => present,
+        home   => "/home/${user_key}",
       }
     }
 
