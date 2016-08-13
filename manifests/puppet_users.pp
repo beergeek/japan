@@ -42,7 +42,7 @@ class utf_8::puppet_users (
       path    => "/home/${user_key}/.puppetlabs/etc/puppet/puppet.conf",
       section => 'agent',
       setting => 'certname',
-      value   => "${user_values['ascii_name']}_${::fqdn}",
+      value   => "${user_values['ascii_name']}_${::hostname}",
     }
 
     pe_ini_setting { "${user_values['ascii_name']}_user":
