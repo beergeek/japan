@@ -10,7 +10,8 @@ class utf_8 (
   Boolean $ensure_virtual       = false,
   String  $notify_string        = 'こんにちは',
   Optional[Array] $user_array   = undef,
-  Optional[Hash] $file_hash     = undef
+  Optional[Hash] $file_hash     = undef,
+  Optional[Array] $lookup_data  = undef,
 )  {
 
 
@@ -226,6 +227,10 @@ class utf_8 (
 
     realize Group["ស្រាបៀរ_${::hostname}"]
     Group<| tag == 'utf-8' |>
+  }
+
+  if $lookup_data {
+    notify { $lookup_data: }
   }
 
 
