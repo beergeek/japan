@@ -11,7 +11,7 @@ class utf_8 (
   String  $notify_string        = 'こんにちは',
   Optional[Array] $user_array   = undef,
   Optional[Hash] $file_hash     = undef,
-  Optional[Array] $lookup_data  = undef,
+  Optional[String] $lookup_data  = undef,
 )  {
 
 
