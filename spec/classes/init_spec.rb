@@ -4,7 +4,8 @@ describe 'utf_8' do
   context "fails on non-Linux or non-Windoz" do
     let(:facts) {
       {
-        'kernel' => 'Gigantic_Brewery',
+        'kernel'  => 'Gigantic_Brewery',
+        'os'      => { 'family' => 'Gigantic' }
       }
     }
 
@@ -16,7 +17,8 @@ describe 'utf_8' do
   context 'all defaults' do
     let(:facts) {
       {
-        'kernel' => 'Linux',
+        'kernel'  => 'Linux',
+        'os'      => { 'family' => 'Debian' }
       }
     }
     it { is_expected.to contain_class('utf_8') }
@@ -29,7 +31,8 @@ describe 'utf_8' do
   context 'with host ensured' do
     let(:facts) {
       {
-        'kernel' => 'Linux',
+        'kernel'  => 'Linux',
+        'os'      => { 'family' => 'Debian' }
       }
     }
     let(:params) {
@@ -79,7 +82,7 @@ describe 'utf_8' do
       is_expected.to contain_file('/home/ブレット').with({
         'ensure' => 'directory',
         'owner'  => 'ブレット',
-        'group'  => 'ブレット',
+        'group'  => 'ブレット_grp',
         'mode'   => '0700',
       })
     }
@@ -101,7 +104,7 @@ describe 'utf_8' do
       is_expected.to contain_file('/home/ディラン').with({
         'ensure' => 'directory',
         'owner'  => 'ディラン',
-        'group'  => 'ディラン',
+        'group'  => 'ディラン_grp',
         'mode'   => '0700',
       })
     }
@@ -123,7 +126,7 @@ describe 'utf_8' do
       is_expected.to contain_file('/home/ジェシー').with({
         'ensure' => 'directory',
         'owner'  => 'ジェシー',
-        'group'  => 'ジェシー',
+        'group'  => 'ジェシー_grp',
         'mode'   => '0700',
       })
     }
@@ -139,8 +142,9 @@ describe 'utf_8' do
     }
     let(:params) {
       {
-        'ensure_files' => true,
-        'file_hash'    => {"ファイル＿2"=>{"content"=>"ブレット"}, "ファイル＿3"=>{"content"=>"ディラン"}},
+        'ensure_files'        => true,
+        'file_hash'           => {"ファイル＿2"=>{"content"=>"ブレット"}, "ファイル＿3"=>{"content"=>"ディラン"}},
+        'ensure_static_files' => true,
       }
     }
 
@@ -229,8 +233,9 @@ describe 'utf_8' do
     }
     let(:params) {
       {
-        'ensure_files' => true,
-        'file_hash'    => {"ファイル＿2"=>{"content"=>"ブレット"}, "ファイル＿3"=>{"content"=>"ディラン"}},
+        'ensure_files'        => true,
+        'file_hash'           => {"ファイル＿2"=>{"content"=>"ブレット"}, "ファイル＿3"=>{"content"=>"ディラン"}},
+        'ensure_static_files' => true,
       }
     }
 
@@ -281,16 +286,16 @@ describe 'utf_8' do
     }
 
     it {
-      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\/ファイル＿2").with({
+      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\ファイル＿2").with({
         'ensure'  => 'file',
         'owner'   => 'S-1-5-32-544',
         'group'   => 'S-1-5-32-544',
         'mode'    => '0644',
-      }).with_content(/.*東京.*/)
+      }).with_content(/\s*東京\s*/)
     }
 
     it {
-      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\/ファイル＿2_1").with({
+      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\ファイル＿2_1").with({
         'ensure'  => 'file',
         'owner'   => 'S-1-5-32-544',
         'group'   => 'S-1-5-32-544',
@@ -300,12 +305,12 @@ describe 'utf_8' do
     }
 
     it {
-      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\/ファイル＿2_test").with({
+      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿2_test").with({
         'ensure'  => 'file',
         'owner'   => 'S-1-5-32-544',
         'group'   => 'S-1-5-32-544',
         'mode'    => '0644',
-      }).with_content(/\s*東京\s*/)
+      }).with_content(/\s*こんにちは\s*/)
     }
 
     it {
@@ -319,7 +324,7 @@ describe 'utf_8' do
     }
 
     it {
-      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\/ファイル＿3").with({
+      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\ファイル＿3").with({
         'ensure'  => 'file',
         'owner'   => 'S-1-5-32-544',
         'group'   => 'S-1-5-32-544',
@@ -328,7 +333,7 @@ describe 'utf_8' do
     }
 
     it {
-      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\/ファイル＿3_1").with({
+      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\ファイル＿3_1").with({
         'ensure'  => 'file',
         'owner'   => 'S-1-5-32-544',
         'group'   => 'S-1-5-32-544',
@@ -337,12 +342,12 @@ describe 'utf_8' do
     }
 
     it {
-      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿ディレクトリ\\/ファイル＿3_test").with({
+      is_expected.to contain_file("C:\\メインディレクトリ\\ファイル＿3_test").with({
         'ensure'  => 'file',
         'owner'   => 'S-1-5-32-544',
         'group'   => 'S-1-5-32-544',
         'mode'    => '0644',
-      }).with_content(/\s*東京\s*/)
+      }).with_content(/\s*こんにちは\s*/)
     }
   end
 end
