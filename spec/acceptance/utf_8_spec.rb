@@ -20,10 +20,18 @@ describe 'utf_8 class' do
       it { is_expected.to belong_to_primary_group 'ブレット_grp' }
     end
 
-    describe file('/home/ブレット') do
-      it { is_expected.to exist}
-      it { is_expected.to be_directory}
-      it { is_expected.to be_owned_by 'ブレット'}
+    if fact("kernel") == 'Linux'
+      describe file('/home/ブレット') do
+        it { is_expected.to exist}
+        it { is_expected.to be_directory}
+        it { is_expected.to be_owned_by 'ブレット'}
+      end
+    elsif fact('kerne') == 'windows'
+      describe file('C:\\Users\\ブレット') do
+        it { is_expected.to exist}
+        it { is_expected.to be_directory}
+        it { is_expected.to be_owned_by 'ブレット'}
+      end
     end
 
     describe user('Rößle') do
@@ -31,10 +39,12 @@ describe 'utf_8 class' do
       it { is_expected.to belong_to_primary_group 'Rößle_grp' }
     end
 
-    describe file('/home/Rößle') do
-      it { is_expected.to exist}
-      it { is_expected.to be_directory}
-      it { is_expected.to be_owned_by 'Rößle'}
+    if fact("kernel") == 'Linux'
+      describe file('/home/Rößle') do
+        it { is_expected.to exist}
+        it { is_expected.to be_directory}
+        it { is_expected.to be_owned_by 'Rößle'}
+      end
     end
 
     describe group('オージー') do
