@@ -17,12 +17,14 @@ describe 'utf_8 class' do
 
     describe user('ブレット') do
       it { is_expected.to exist}
-      it { is_expected.to belong_to_group 'ブレット_grp' }
+      it { is_expected.to belong_to_primary_group 'ブレット_grp' }
+      it { is_expected.to belong_to_group 'オージー'}
     end
 
     describe user('Rößle') do
       it { is_expected.to exist}
-      it { is_expected.to belong_to_group 'Rößle_grp' }
+      it { is_expected.to belong_to_primary_group 'Rößle_grp' }
+      it { is_expected.to belong_to_group 'オージー'}
     end
 
     describe group('オージー') do
