@@ -22,9 +22,15 @@ RSpec.configure do |c|
     hosts.each do |host|
       install_dev_puppet_module_on(host,:source => proj_root, :module_name => 'utf_8', :target_module_path => '/etc/puppetlabs/code/modules')
       # Required for binding tests.
-      if fact("os['family']") == 'windows'
+      if fact("osfamily") == 'windows'
         shell('puppet module install puppetlabs-acl --version 1.1.2', { :acceptable_exit_codes => [0,1] })
         shell('puppet module install puppetlabs-registry --version 1.1.3', { :acceptable_exit_codes => [0,1] })
+      elsif fact("osfamily") == 'Debian'
+        shell("echo 'LANG=ja_JP.UTF-8' > /etc/default/locale")
+        shell("echo 'LANGUAGE=ja_JP.UTF-8' >> /etc/default/locale")
+        shell("echo 'LC_ALL=ja_JP.UTF-8' >> /etc/default/locale")
+        shell("echo 'ja_JP.UTF-8' >> /etc/locale.gen")
+        shell("locale-gen ja_JP.UTF-8")
       end
 
       shell('puppet module install puppetlabs-stdlib --version 4.12.0', { :acceptable_exit_codes => [0,1] })

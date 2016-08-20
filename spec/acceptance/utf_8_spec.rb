@@ -18,13 +18,23 @@ describe 'utf_8 class' do
     describe user('ブレット') do
       it { is_expected.to exist}
       it { is_expected.to belong_to_primary_group 'ブレット_grp' }
-      it { is_expected.to belong_to_group 'オージー'}
+    end
+
+    describe file('/home/ブレット') do
+      it { is_expected.to exist}
+      it { is_expected.to be_directory}
+      it { is_expected.to be_owned_by 'ブレット'}
     end
 
     describe user('Rößle') do
       it { is_expected.to exist}
       it { is_expected.to belong_to_primary_group 'Rößle_grp' }
-      it { is_expected.to belong_to_group 'オージー'}
+    end
+
+    describe file('/home/Rößle') do
+      it { is_expected.to exist}
+      it { is_expected.to be_directory}
+      it { is_expected.to be_owned_by 'Rößle'}
     end
 
     describe group('オージー') do
