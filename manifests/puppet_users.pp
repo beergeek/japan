@@ -7,13 +7,13 @@ class utf_8::puppet_users (
     fail("This class is only for Linux nodes")
   }
 
-  Pe_ini_setting {
-    path    => "/home/${user_key}/.puppetlabs/etc/puppet/puppet.conf",
-    section => 'agent',
-    require => File["/home/${user_key}/.puppetlabs/etc/puppet/puppet.conf"],
-  }
-
   $user_hash.each |String $user_key, Hash $user_values| {
+    Pe_ini_setting {
+      path    => "/home/${user_key}/.puppetlabs/etc/puppet/puppet.conf",
+      section => 'agent',
+      require => File["/home/${user_key}/.puppetlabs/etc/puppet/puppet.conf"],
+    }
+
     if $user_values['manage_user'] == true {
       user { $user_key:
         ensure => present,
