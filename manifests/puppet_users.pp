@@ -8,11 +8,6 @@ class utf_8::puppet_users (
   }
 
   $user_hash.each |String $user_key, Hash $user_values| {
-    Pe_ini_setting {
-      path    => "/home/${user_key}/.puppetlabs/etc/puppet/puppet.conf",
-      section => 'agent',
-      require => File["/home/${user_key}/.puppetlabs/etc/puppet/puppet.conf"],
-    }
 
     if $user_values['manage_user'] == true {
       user { $user_key:
@@ -47,18 +42,27 @@ class utf_8::puppet_users (
       ensure  => present,
       setting => 'certname',
       value   => "${user_values['ascii_name']}_${::hostname}",
+      path    => "/home/${user_key}/.puppetlabs/etc/puppet/puppet.conf",
+      section => 'agent',
+      require => File["/home/${user_key}/.puppetlabs/etc/puppet/puppet.conf"],
     }
 
     pe_ini_setting { "${user_values['ascii_name']}_user":
       ensure  => present,
       setting => 'user',
       value   => $user_key,
+      path    => "/home/${user_key}/.puppetlabs/etc/puppet/puppet.conf",
+      section => 'agent',
+      require => File["/home/${user_key}/.puppetlabs/etc/puppet/puppet.conf"],
     }
 
     pe_ini_setting { "${user_values['ascii_name']}_server":
       ensure  => present,
       setting => 'server',
       value   => $::settings::server,
+      path    => "/home/${user_key}/.puppetlabs/etc/puppet/puppet.conf",
+      section => 'agent',
+      require => File["/home/${user_key}/.puppetlabs/etc/puppet/puppet.conf"],
     }
 
     cron { "${user_key}_puppet":
