@@ -26,7 +26,7 @@ describe 'utf_8 class' do
         it { is_expected.to be_directory}
         it { is_expected.to be_owned_by 'ブレット'}
       end
-    elsif fact('kerne') == 'windows'
+    elsif fact('kernel') == 'windows'
       describe file('C:\\Users\\ブレット') do
         it { is_expected.to exist}
         it { is_expected.to be_directory}
