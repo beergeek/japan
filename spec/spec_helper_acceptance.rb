@@ -4,7 +4,7 @@ UNSUPPORTED_PLATFORMS = [ 'Solaris', 'AIX' ]
 
 unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
   hosts.each do |host|
-    install_puppet_agent_on(host, :version => '1.5.2')
+    install_puppet_agent_on(host, :version => '1.6.1')
     on hosts, "mkdir -p #{host['distmoduledir']}"
   end
 end
