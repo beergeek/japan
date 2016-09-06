@@ -1,16 +1,16 @@
 class utf_8 (
-  Boolean $ensure_host          = false, #this will fail
-  Boolean $ensure_users         = false,
-  Boolean $ensure_group         = false,
-  Boolean $ensure_files         = false,
-  Boolean $ensure_static_files  = false,
-  Boolean $ensure_concat        = false,
-  Boolean $ensure_registry      = false,
-  Boolean $ensure_exported      = false,
-  Boolean $ensure_virtual       = false,
-  String  $notify_string        = 'こんにちは',
-  Optional[Array] $user_array   = undef,
-  Optional[Hash] $file_hash     = undef,
+  Boolean $ensure_host           = false, #this will fail
+  Boolean $ensure_users          = false,
+  Boolean $ensure_group          = false,
+  Boolean $ensure_files          = false,
+  Boolean $ensure_static_files   = false,
+  Boolean $ensure_concat         = false,
+  Boolean $ensure_registry       = false,
+  Boolean $ensure_exported       = false,
+  Boolean $ensure_virtual        = false,
+  String  $notify_string         = 'こんにちは',
+  Optional[Array] $user_array    = undef,
+  Optional[Hash] $file_hash      = undef,
   Optional[String] $lookup_data  = undef,
 )  {
 
