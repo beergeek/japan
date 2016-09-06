@@ -181,7 +181,7 @@ class utf_8 (
     }
 
     registry::value { 'pivo':
-      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\russian\pivo',
+      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\czech\pivo',
       value => 'beer',
       data  => 'pivo',
     }
