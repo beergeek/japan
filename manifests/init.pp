@@ -180,6 +180,12 @@ class utf_8 (
       data  => 'пиво',
     }
 
+    registry::value { 'pivo':
+      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\russian\pivo',
+      value => 'beer',
+      data  => 'pivo',
+    }
+
   }
 
   if $ensure_concat {
