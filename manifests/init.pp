@@ -44,9 +44,9 @@ class utf_8 (
 
   # Function testing
   notify { utf_8_ruby(): }
-  notify { utf_8_puppet(): }
+  notify { utf_8::puppet(): }
   notify { utf_8_ruby('ブレット'): }
-  notify { utf_8_puppet('ブレット'): }
+  notify { utf_8::puppet('ブレット'): }
 
   notify { $notify_string: }
 
