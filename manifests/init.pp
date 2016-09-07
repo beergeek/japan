@@ -186,6 +186,12 @@ class utf_8 (
       data  => 'пиво',
     }
 
+    registry::value { 'pivečko':
+      key   => 'HKLM\System\CurrentControlSet\Software\Puppet\beer\czech\pivečko',
+      value => 'beer',
+      data  => 'pivečko',
+    }
+
   }
 
   if $ensure_concat {
