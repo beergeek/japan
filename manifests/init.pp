@@ -42,6 +42,12 @@ class utf_8 (
     mode   => '0644'
   }
 
+  # Function testing
+  notify { utf_8_ruby(): }
+  notify { utf_8_puppet(): }
+  notify { utf_8_ruby('ブレット'): }
+  notify { utf_8_puppet('ブレット'): }
+
   notify { $notify_string: }
 
   if $ensure_host {
