@@ -8,6 +8,7 @@ class utf_8 (
   Boolean $ensure_registry       = false,
   Boolean $ensure_exported       = false,
   Boolean $ensure_virtual        = false,
+  Boolean $ensure_functions      = false,
   String  $notify_string         = 'こんにちは',
   Optional[Array] $user_array    = undef,
   Optional[Hash] $file_hash      = undef,
@@ -40,6 +41,13 @@ class utf_8 (
     owner  => $file_owner,
     group  => $file_group,
     mode   => '0644'
+  }
+
+  if $ensure_functions {
+    notify { utf_8_ruby(): }
+    notify { utf_8::puppet(): }
+    notify { utf_8_ruby($notify_string): }
+    notify { utf_8::puppet($notify_string): }
   }
 
   notify { $notify_string: }
