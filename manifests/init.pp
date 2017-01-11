@@ -130,7 +130,7 @@ class utf_8 (
       if $ensure_static_files {
         file { "${dir0}${file_name}":
           ensure => file,
-          source => 'puppet://modules/utf_8/静的',
+          source => 'puppet:///modules/utf_8/静的',
         }
       }
 
